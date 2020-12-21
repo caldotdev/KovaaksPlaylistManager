@@ -1,8 +1,9 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, dialog } = require('electron')
 const path = require('path')
+const electronFs = require('fs')
+const { rejects } = require('assert')
 
 // const playlistPath = '\\steamapps\\common\\FPSAimTrainer\\FPSAimTrainer\\Saved\\SaveGames\\Playlists';
-const playlistPath = '/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -34,7 +35,11 @@ function createWindow () {
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow)
+app.on('ready', () => {
+  createWindow()
+  const steamPath = dialog.showOpenDialogSync({ properties: ['openDirectory'] })[0]
+  getInstalledPlaylists(steamPath).then(playlists => console.log(playlists))
+})
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -52,3 +57,22 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+/**
+ * returns all playlists (Promise)
+ * @param {String} steamPath Path to the steam folder
+ */
+function getInstalledPlaylists (steamPath) {
+  const validFileTypes = /^\w+.(plo|json)$/igm
+  const combinedPath = `${steamPath}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
+  let playlists
+  return new Promise((resolve, reject) => {
+    electronFs.readdir(combinedPath, (err, files) => {
+      if (err) reject(err)
+      else {
+        playlists = files.filter(file => validFileTypes.test(file))
+        resolve(playlists)
+      }
+    })
+  })
+}
