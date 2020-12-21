@@ -1,19 +1,22 @@
 const { app, BrowserWindow, dialog } = require('electron')
 const path = require('path')
-const electronFs = require('fs')
-const { rejects } = require('assert')
+const fs = require('fs')
 
 // const playlistPath = '\\steamapps\\common\\FPSAimTrainer\\FPSAimTrainer\\Saved\\SaveGames\\Playlists';
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+let steamPath
 
 function createWindow () {
   const mode = process.env.NODE_ENV
   mainWindow = new BrowserWindow({
     width: 900,
-    height: 680
+    height: 680,
+    webPreferences: {
+      nodeIntegration: true
+    }
   })
   let watcher
   if (mode === 'development') {
@@ -37,8 +40,11 @@ function createWindow () {
 // Some APIs can only be used after this event occurs.
 app.on('ready', () => {
   createWindow()
-  const steamPath = dialog.showOpenDialogSync({ properties: ['openDirectory'] })[0]
-  getInstalledPlaylists(steamPath).then(playlists => console.log(playlists))
+  mainWindow.webContents.openDevTools()
+  steamPath = dialog.showOpenDialogSync({ properties: ['openDirectory'] })[0]
+  getInstalledPlaylists(steamPath).then(playlists => {
+    mainWindow.webContents.send('update-playlists', playlists)
+  })
 })
 
 // Quit when all windows are closed.
@@ -63,11 +69,12 @@ app.on('activate', () => {
  * @param {String} steamPath Path to the steam folder
  */
 function getInstalledPlaylists (steamPath) {
-  const validFileTypes = /^\w+.(plo|json)$/igm
+  // const validFileTypes = /^\w+.(plo|json)$/igm
+  const validFileTypes = /^[\s\S]+.(json|plo)$/
   const combinedPath = `${steamPath}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
   let playlists
   return new Promise((resolve, reject) => {
-    electronFs.readdir(combinedPath, (err, files) => {
+    fs.readdir(combinedPath, (err, files) => {
       if (err) reject(err)
       else {
         playlists = files.filter(file => validFileTypes.test(file))
