@@ -5,13 +5,11 @@
         "node": true
     },
     "extends": [
-        "google"
+        "standard"
     ],
     "parserOptions": {
         "ecmaVersion": 12
     },
     "rules": {
-        "require-jsdoc":"off",
-        "max-len":"off"
     }
 }

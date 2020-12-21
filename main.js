@@ -2,6 +2,9 @@ const {app, BrowserWindow, dialog} = require('electron');
 const fs = require('fs');
 const _ = require('lodash');
 
+// const playlistPath = '\\steamapps\\common\\FPSAimTrainer\\FPSAimTrainer\\Saved\\SaveGames\\Playlists';
+const playlistPath = '/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists';
+
 function createWindow() {
   const win = new BrowserWindow({
     width: 800,
@@ -18,9 +21,9 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow();
   const path = dialog.showOpenDialogSync({properties: ['openDirectory']})[0];
-  console.log(fs.readdir(path, (err, files) => {
+  fs.readdir(path + playlistPath, (err, files) => {
     console.log(files);
-  }));
+  });
 });
 
 app.on('window-all-closed', () => {
