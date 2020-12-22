@@ -13,16 +13,12 @@ ipcRenderer.on('available-playlists', (event, message) => {
 	availablePlaylists = message
 })
 
-function showAvailablePlaylists() {
-	ipcRenderer.send('get-available-playlists')
-}
-
 function handleDelete () {
 
 }
 
 function handleAdd () {
-
+	ipcRenderer.send('add-playlists', selectedAvailablePlaylists)
 }
 </script>
 

@@ -10,6 +10,7 @@ const validFileTypes = /^[\s\S]+.(json|plo)$/
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 let steamPath
+let combinedPath
 
 function createWindow () {
   const mode = process.env.NODE_ENV
@@ -44,9 +45,8 @@ app.on('ready', () => {
   createWindow()
   mainWindow.webContents.openDevTools()
   steamPath = dialog.showOpenDialogSync({ properties: ['openDirectory'] })[0]
-  getInstalledPlaylists(steamPath).then(playlists => {
-    mainWindow.webContents.send('update-playlists', playlists)
-  })
+  combinedPath = `${steamPath}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
+  updateInstalledPlaylists()
   getAvailablePlaylists()
     .then(playlists => {
       mainWindow.webContents.send('available-playlists', playlists)
@@ -73,17 +73,23 @@ app.on('activate', () => {
   }
 })
 
-ipcMain.on('get-available-playlists', (event, message) => {
-
+ipcMain.on('add-playlists', (event, message) => {
+  const playlistsToInstall = message
+  // TODO: introduce promises for that
+  playlistsToInstall.forEach(playlist => {
+    fs.copyFileSync(`${availablePlaylistsPath}/${playlist}`, `${combinedPath}/${playlist}`, (err) => {
+      if (err) console.log('there was a problem copying an available playlists to the installed ones', err)
+      else console.log(`successfully copied "${playlist}"`)
+    })
+  })
+  updateInstalledPlaylists()
 })
 
 /**
  * returns all playlists (Promise)
  * @param {String} steamPath Path to the steam folder
  */
-function getInstalledPlaylists (steamPath) {
-  // const validFileTypes = /^\w+.(plo|json)$/igm
-  const combinedPath = `${steamPath}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
+function getInstalledPlaylists () {
   let playlists
   return new Promise((resolve, reject) => {
     fs.readdir(combinedPath, (err, files) => {
@@ -104,5 +110,11 @@ function getAvailablePlaylists () {
         resolve(files.filter(file => validFileTypes.test(file)))
       }
     })
+  })
+}
+
+function updateInstalledPlaylists () {
+  getInstalledPlaylists().then(playlists => {
+    mainWindow.webContents.send('update-playlists', playlists)
   })
 }
