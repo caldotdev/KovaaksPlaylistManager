@@ -1,5 +1,5 @@
 {
-  "name": "svelte-app",
+  "name": "kovaaks-playlist-manager",
   "version": "1.0.0",
   "main": "./src/electron.js",
   "scripts": {
@@ -32,5 +32,7 @@
     "sirv-cli": "^1.0.10",
     "svelte": "^3.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "electron-store": "^6.0.1"
+  }
 }

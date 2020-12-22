@@ -1,16 +1,14 @@
-const { app, BrowserWindow, dialog, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require('path')
-const fs = require('fs')
+const Store = require('electron-store')
+const store = new Store()
 
-// const playlistPath = '\\steamapps\\common\\FPSAimTrainer\\FPSAimTrainer\\Saved\\SaveGames\\Playlists';
-const availablePlaylistsPath = path.join(__dirname, './availablePlaylists')
-const validFileTypes = /^[\s\S]+.(json|plo)$/
+const { getPlaylistsFromPath, deletePlaylists, copyPlaylists } = require('./util/playlistFileUtil')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-let steamPath
-let combinedPath
+let playlistFolderPath
 
 function createWindow () {
   const mode = process.env.NODE_ENV
@@ -18,7 +16,10 @@ function createWindow () {
     width: 900,
     height: 680,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: false, // is default value after Electron v5
+      contextIsolation: true, // protect against prototype pollution
+      enableRemoteModule: false, // turn off remote
+      preload: path.join(__dirname, 'preload.js') // use a preload script
     }
   })
   let watcher
@@ -36,97 +37,47 @@ function createWindow () {
       watcher.close()
     }
   })
+
+  // enable devtools
+  mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', () => {
-  createWindow()
-  mainWindow.webContents.openDevTools()
-  steamPath = dialog.showOpenDialogSync({ properties: ['openDirectory'] })[0]
-  combinedPath = `${steamPath}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
-  updateInstalledPlaylists()
-  getAvailablePlaylists()
-    .then(playlists => {
-      mainWindow.webContents.send('available-playlists', playlists)
-    })
-    .catch(err => {
-      console.log('couldnt load available playlists', err)
-    })
-})
+app.on('ready', createWindow)
 
 // Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+app.on('window-all-closed', app.quit)
+
+// ------------------------------------------------------------------------------------
+
+ipcMain.on('open-dialog', (event, arg) => {
+  dialog.showOpenDialog({ properties: ['openDirectory'] }).then(response => {
+    if (response.canceled !== true) {
+      // win: const playlistPath = '\\steamapps\\common\\FPSAimTrainer\\FPSAimTrainer\\Saved\\SaveGames\\Playlists';
+      playlistFolderPath = `${response.filePaths[0]}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
+    }
+  })
 })
 
-app.on('activate', () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow()
-  }
+ipcMain.handle('installed-playlists', async (event, message) => {
+  playlistFolderPath = store.get('playlistFolderPath')
+  const result = await getPlaylistsFromPath(playlistFolderPath)
+  return result
 })
 
-ipcMain.on('add-playlists', (event, message) => {
-  const playlistsToInstall = message
-  playlistsToInstall.forEach(playlist => {
-    // TODO: make this non blocking?
-    fs.copyFileSync(`${availablePlaylistsPath}/${playlist}`, `${combinedPath}/${playlist}`, (err) => {
-      if (err) console.log('there was a problem copying an available playlists to the installed ones', err)
-      else console.log(`successfully copied "${playlist}"`)
-    })
-  })
-  updateInstalledPlaylists()
+ipcMain.handle('available-playlists', async (event, message) => {
+  const result = await getPlaylistsFromPath(path.join(__dirname, './availablePlaylists'))
+  return result
 })
 
-ipcMain.on('remove-playlists', (event, message) => {
-  const playlistsToDelete = message
-  playlistsToDelete.forEach(playlist => {
-    // TODO: make this non blocking?
-    fs.unlinkSync(`${combinedPath}/${playlist}`, (err) => {
-      if (err) console.log('there was a problem copying an available playlists to the installed ones', err)
-      else console.log(`successfully deleted "${playlist}"`)
-    })
-  })
-  updateInstalledPlaylists()
+ipcMain.handle('delete-playlists', async (event, playlists) => {
+  deletePlaylists(playlists, playlistFolderPath)
+  return await getPlaylistsFromPath(playlistFolderPath)
 })
 
-/**
- * returns all playlists (Promise)
- * @param {String} steamPath Path to the steam folder
- */
-function getInstalledPlaylists () {
-  let playlists
-  return new Promise((resolve, reject) => {
-    fs.readdir(combinedPath, (err, files) => {
-      if (err) reject(err)
-      else {
-        playlists = files.filter(file => validFileTypes.test(file))
-        resolve(playlists)
-      }
-    })
-  })
-}
-
-function getAvailablePlaylists () {
-  return new Promise((resolve, reject) => {
-    fs.readdir(availablePlaylistsPath, (err, files) => {
-      if (err) reject(err)
-      else {
-        resolve(files.filter(file => validFileTypes.test(file)))
-      }
-    })
-  })
-}
-
-function updateInstalledPlaylists () {
-  getInstalledPlaylists().then(playlists => {
-    mainWindow.webContents.send('update-playlists', playlists)
-  })
-}
+ipcMain.handle('add-playlists', async (event, playlists) => {
+  copyPlaylists(playlists, path.join(__dirname, './availablePlaylists'), playlistFolderPath)
+  return await getPlaylistsFromPath(playlistFolderPath)
+})

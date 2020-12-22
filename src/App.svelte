@@ -1,37 +1,43 @@
 <script>
-let playlists = []
-let selectedPlaylists = []
+import { onMount } from 'svelte';
+
+let installedPlaylists = []
 let availablePlaylists = []
+let selectedPlaylists = []
 let selectedAvailablePlaylists = []
 let showFileEndings = false
 
-const { ipcRenderer } = require('electron')
-ipcRenderer.on('update-playlists', (event, message) => {
-	playlists = message
-})
-ipcRenderer.on('available-playlists', (event, message) => {
-	availablePlaylists = message
-})
+onMount(() => {
+	window.api.receiveInstalledPlaylists().then(playlists => installedPlaylists = playlists)
+	window.api.receiveAvailablePlaylists().then(playlists => availablePlaylists = playlists)
+});
+
+function setSteamPath () {
+	window.api.openDialog()
+}
 
 function handleDelete () {
-	ipcRenderer.send('remove-playlists', selectedPlaylists)
+	window.api.deletePlaylists(selectedPlaylists).then(playlists => installedPlaylists = playlists)
 }
 
 function handleAdd () {
-	ipcRenderer.send('add-playlists', selectedAvailablePlaylists)
+	window.api.addPlaylists(selectedAvailablePlaylists).then(playlists => installedPlaylists = playlists)
 }
 </script>
 
 <main>
 	<h1>Playlist Manager</h1>
+	<button on:click={setSteamPath}>
+		Set steam path
+	</button>
 	<h2>Installed playlists</h2>
 	<label>
 		<input type=checkbox bind:checked={showFileEndings}>
 		Show file endings
 	</label>
-	{#if playlists.length > 0}
+	{#if installedPlaylists.length > 0}
 	<select multiple bind:value={selectedPlaylists}>
-		{#each playlists as playlist}
+		{#each installedPlaylists as playlist}
 			<option value={playlist}>
 				{#if showFileEndings}
 					{playlist}
@@ -61,19 +67,6 @@ function handleAdd () {
 	<button on:click={handleAdd}>
 		Add selected playlists
 	</button>
-	
-	<h2>Selected playlists</h2>
-	<ul>
-	{#each selectedPlaylists as name}
-		<li>
-			{#if showFileEndings}
-				{name}
-			{:else}
-				 {name.replace(/\.[^/.]+$/, '')}
-			{/if}
-		</li>
-	{/each}
-	</ul>
 
 	<a href="https://twitter.com/sens0001">by sens</a>
 </main>
