@@ -1,7 +1,11 @@
-const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, shell, autoUpdater } = require('electron')
 const path = require('path')
 const Store = require('electron-store')
 const store = new Store()
+const isDev = require('electron-is-dev')
+
+// updater
+require('update-electron-app')()
 
 const { getPlaylistsFromPath, deletePlaylists, copyPlaylists } = require('./util/playlistFileUtil')
 
@@ -51,13 +55,49 @@ app.on('ready', createWindow)
 // Quit when all windows are closed.
 app.on('window-all-closed', app.quit)
 
+// Handle updates
+// ------------------------------------------------------------------------------------
+
+if (!isDev) {
+  const server = 'https://your-deployment-url.com'
+  const url = `${server}/update/${process.platform}/${app.getVersion()}`
+
+  autoUpdater.setFeedURL({ url })
+
+  setInterval(() => {
+    autoUpdater.checkForUpdates()
+  }, 60000)
+}
+
+autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
+  const dialogOpts = {
+    type: 'info',
+    buttons: ['Restart', 'Later'],
+    title: 'Application Update',
+    message: process.platform === 'win32' ? releaseNotes : releaseName,
+    detail: 'A new version has been downloaded. Restart the application to apply the updates.'
+  }
+
+  dialog.showMessageBox(dialogOpts).then((returnValue) => {
+    if (returnValue.response === 0) autoUpdater.quitAndInstall()
+  })
+})
+
+autoUpdater.on('error', message => {
+  console.error('There was a problem updating the application')
+  console.error(message)
+})
+
 // ------------------------------------------------------------------------------------
 
 ipcMain.on('open-dialog', (event, arg) => {
   dialog.showOpenDialog({ properties: ['openDirectory'] }).then(response => {
     if (response.canceled !== true) {
-      // win: const playlistPath = '\\steamapps\\common\\FPSAimTrainer\\FPSAimTrainer\\Saved\\SaveGames\\Playlists';
-      playlistFolderPath = `${response.filePaths[0]}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
+      if (isDev) {
+        playlistFolderPath = `${response.filePaths[0]}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
+      } else {
+        playlistFolderPath = `${response.filePaths[0]}\\steamapps\\common\\FPSAimTrainer\\FPSAimTrainer\\Saved\\SaveGames\\Playlists`
+      }
     }
   })
 })
