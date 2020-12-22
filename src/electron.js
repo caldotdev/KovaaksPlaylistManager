@@ -1,8 +1,10 @@
-const { app, BrowserWindow, dialog } = require('electron')
+const { app, BrowserWindow, dialog, ipcMain } = require('electron')
 const path = require('path')
 const fs = require('fs')
 
 // const playlistPath = '\\steamapps\\common\\FPSAimTrainer\\FPSAimTrainer\\Saved\\SaveGames\\Playlists';
+const availablePlaylistsPath = path.join(__dirname, './availablePlaylists')
+const validFileTypes = /^[\s\S]+.(json|plo)$/
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -45,6 +47,13 @@ app.on('ready', () => {
   getInstalledPlaylists(steamPath).then(playlists => {
     mainWindow.webContents.send('update-playlists', playlists)
   })
+  getAvailablePlaylists()
+    .then(playlists => {
+      mainWindow.webContents.send('available-playlists', playlists)
+    })
+    .catch(err => {
+      console.log('couldnt load available playlists', err)
+    })
 })
 
 // Quit when all windows are closed.
@@ -64,13 +73,16 @@ app.on('activate', () => {
   }
 })
 
+ipcMain.on('get-available-playlists', (event, message) => {
+
+})
+
 /**
  * returns all playlists (Promise)
  * @param {String} steamPath Path to the steam folder
  */
 function getInstalledPlaylists (steamPath) {
   // const validFileTypes = /^\w+.(plo|json)$/igm
-  const validFileTypes = /^[\s\S]+.(json|plo)$/
   const combinedPath = `${steamPath}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
   let playlists
   return new Promise((resolve, reject) => {
@@ -79,6 +91,17 @@ function getInstalledPlaylists (steamPath) {
       else {
         playlists = files.filter(file => validFileTypes.test(file))
         resolve(playlists)
+      }
+    })
+  })
+}
+
+function getAvailablePlaylists () {
+  return new Promise((resolve, reject) => {
+    fs.readdir(availablePlaylistsPath, (err, files) => {
+      if (err) reject(err)
+      else {
+        resolve(files.filter(file => validFileTypes.test(file)))
       }
     })
   })

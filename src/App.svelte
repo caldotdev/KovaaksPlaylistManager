@@ -1,33 +1,71 @@
 <script>
-	let playlists = []
-	let selectedPlaylists = []
-	let showFileEndings = false
+let playlists = []
+let selectedPlaylists = []
+let availablePlaylists = []
+let selectedAvailablePlaylists = []
+let showFileEndings = false
 
-	const {ipcRenderer} = require('electron');
-	ipcRenderer.on('update-playlists', (event, message) => {
-		playlists = message
-	})
+const { ipcRenderer } = require('electron')
+ipcRenderer.on('update-playlists', (event, message) => {
+	playlists = message
+})
+ipcRenderer.on('available-playlists', (event, message) => {
+	availablePlaylists = message
+})
+
+function showAvailablePlaylists() {
+	ipcRenderer.send('get-available-playlists')
+}
+
+function handleDelete () {
+
+}
+
+function handleAdd () {
+
+}
 </script>
 
 <main>
 	<h1>Playlist Manager</h1>
 	<h2>Installed playlists</h2>
-	<select multiple bind:value={selectedPlaylists}>
-	{#each playlists as playlist}
-		<option value={playlist}>
-			{#if showFileEndings}
-				{playlist}
-			{:else}
-				 {playlist.replace(/\.[^/.]+$/, "")}
-			{/if}
-		</option>
-	{/each}
-	</select>
 	<label>
 		<input type=checkbox bind:checked={showFileEndings}>
 		Show file endings
 	</label>
+	{#if playlists.length > 0}
+	<select multiple bind:value={selectedPlaylists}>
+		{#each playlists as playlist}
+			<option value={playlist}>
+				{#if showFileEndings}
+					{playlist}
+				{:else}
+					 {playlist.replace(/\.[^/.]+$/, '')}
+				{/if}
+			</option>
+		{/each}
+		</select>
+	{/if}
 
+	<button on:click={handleDelete}>
+		Delete selected Playlists
+	</button>
+
+	<h2>Available playlists</h2>
+	{#if availablePlaylists.length > 0}
+	<select multiple bind:value={selectedAvailablePlaylists}>
+		{#each availablePlaylists as availablePlaylist}
+			<option value={availablePlaylist}>
+				{availablePlaylist.replace(/\.[^/.]+$/, '')}
+			</option>
+		{/each}
+		</select>
+	{/if}
+
+	<button on:click={handleAdd}>
+		Add selected playlists
+	</button>
+	
 	<h2>Selected playlists</h2>
 	<ul>
 	{#each selectedPlaylists as name}
@@ -35,11 +73,13 @@
 			{#if showFileEndings}
 				{name}
 			{:else}
-				 {name.replace(/\.[^/.]+$/, "")}
+				 {name.replace(/\.[^/.]+$/, '')}
 			{/if}
 		</li>
 	{/each}
 	</ul>
+
+	<a href="https://twitter.com/sens0001">by sens</a>
 </main>
 
 <style>
