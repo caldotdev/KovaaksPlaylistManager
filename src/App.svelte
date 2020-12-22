@@ -1,105 +1,116 @@
 <script>
-import { onMount } from 'svelte';
+	import { onMount } from "svelte";
 
-let installedPlaylists = []
-let availablePlaylists = []
-let selectedPlaylists = []
-let selectedAvailablePlaylists = []
-let showFileEndings = false
+	let installedPlaylists = [];
+	let availablePlaylists = [];
+	let selectedPlaylists = [];
+	let selectedAvailablePlaylists = [];
 
-onMount(() => {
-	window.api.receiveInstalledPlaylists().then(playlists => installedPlaylists = playlists)
-	window.api.receiveAvailablePlaylists().then(playlists => availablePlaylists = playlists)
-});
+	onMount(() => {
+		window.api
+			.receiveInstalledPlaylists()
+			.then((playlists) => (installedPlaylists = playlists));
+		window.api
+			.receiveAvailablePlaylists()
+			.then((playlists) => (availablePlaylists = playlists));
+	});
 
-function setSteamPath () {
-	window.api.openDialog()
-}
-
-function handleDelete () {
-	window.api.deletePlaylists(selectedPlaylists).then(playlists => installedPlaylists = playlists)
-}
-
-function handleAdd () {
-	window.api.addPlaylists(selectedAvailablePlaylists).then(playlists => installedPlaylists = playlists)
-}
-</script>
-
-<main>
-	<h1>Playlist Manager</h1>
-	<button on:click={setSteamPath}>
-		Set steam path
-	</button>
-	<h2>Installed playlists</h2>
-	<label>
-		<input type=checkbox bind:checked={showFileEndings}>
-		Show file endings
-	</label>
-	{#if installedPlaylists.length > 0}
-	<select multiple bind:value={selectedPlaylists}>
-		{#each installedPlaylists as playlist}
-			<option value={playlist}>
-				{#if showFileEndings}
-					{playlist}
-				{:else}
-					 {playlist.replace(/\.[^/.]+$/, '')}
-				{/if}
-			</option>
-		{/each}
-		</select>
-	{/if}
-
-	<button on:click={handleDelete}>
-		Delete selected Playlists
-	</button>
-
-	<h2>Available playlists</h2>
-	{#if availablePlaylists.length > 0}
-	<select multiple bind:value={selectedAvailablePlaylists}>
-		{#each availablePlaylists as availablePlaylist}
-			<option value={availablePlaylist}>
-				{availablePlaylist.replace(/\.[^/.]+$/, '')}
-			</option>
-		{/each}
-		</select>
-	{/if}
-
-	<button on:click={handleAdd}>
-		Add selected playlists
-	</button>
-
-	<a href="https://twitter.com/sens0001">by sens</a>
-</main>
-
-<style>
-	main {
-		text-align: center;
-		padding: 1em;
-		max-width: 240px;
-		margin: 0 auto;
+	function setSteamPath() {
+		window.api.openDialog();
 	}
 
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	h2 {
-		color: #ff3e00;
-		font-weight: 100;
-	}
-
-	label {
-		color: #ff3e00;
-		font-weight: 100;
-	}
-
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
+	function handleDelete() {
+		if (selectedPlaylists.length > 0) {
+			window.api
+				.deletePlaylists(selectedPlaylists)
+				.then((playlists) => (installedPlaylists = playlists));
 		}
 	}
+
+	function handleAdd() {
+		if (selectedAvailablePlaylists > 0) {
+			window.api
+				.addPlaylists(selectedAvailablePlaylists)
+				.then((playlists) => (installedPlaylists = playlists));
+		}
+	}
+
+	function handleTwitterClick() {
+		window.api.openTwitterLink();
+	}
+</script>
+
+<style global lang="postcss">
+	/* only apply purgecss on utilities, per Tailwind docs */
+	/* purgecss start ignore */
+	@tailwind base;
+	@tailwind components;
+	/* purgecss end ignore */
+
+	@tailwind utilities;
+
+	.btn {
+		@apply rounded-lg p-1 px-2 shadow-md text-yellow-50 border-transparent appearance-none;
+	}
 </style>
+
+<main class="container h-screen p-2">
+	<div class="mb-3">
+		<button
+			class="btn uppercase bg-blue-300 text-yellow-50 w-3/12"
+			on:click={setSteamPath}>set steam path</button>
+	</div>
+	<div class="flex space-x-6 h-5/6">
+		<div
+			class="shadow-lg flex-grow-0 flex-grow-0 flex flex-col w-1/2 p-4">
+			<h3 class="text-3xl self-center text-yellow-50">
+				Installed playlists
+			</h3>
+
+			{#if installedPlaylists.length > 0}
+				<select
+					multiple
+					bind:value={selectedPlaylists}
+					class="m-3 h-full">
+					{#each installedPlaylists as playlist}
+						<option value={playlist}>
+							{playlist.replace(/\.[^/.]+$/, '')}
+						</option>
+					{/each}
+				</select>
+			{/if}
+
+			<button
+				class="btn bg-red-400 self-center text-yellow-50 w-1/2"
+				on:click={handleDelete}>Delete Playlists</button>
+		</div>
+		<div
+			class="shadow-lg flex-grow-0 flex-shrink-0 flex flex-col w-1/2 p-4">
+			<h3 class="text-3xl self-center text-yellow-50">
+				Available playlists
+			</h3>
+			{#if availablePlaylists.length > 0}
+				<select
+					multiple
+					bind:value={selectedAvailablePlaylists}
+					class="m-3 h-full">
+					{#each availablePlaylists as availablePlaylist}
+						<option value={availablePlaylist}>
+							{availablePlaylist.replace(/\.[^/.]+$/, '')}
+						</option>
+					{/each}
+				</select>
+			{/if}
+
+			<button
+				class="btn bg-green-400 self-center text-yellow-50 w-1/2"
+				on:click={handleAdd}>
+				Add playlists
+			</button>
+		</div>
+	</div>
+
+	<p on:click={handleTwitterClick} class="text-yellow-50 cursor-pointer mt-2">
+		created by sens
+	</p>
+</main>

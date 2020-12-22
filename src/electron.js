@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron')
 const path = require('path')
 const Store = require('electron-store')
 const store = new Store()
@@ -13,14 +13,15 @@ let playlistFolderPath
 function createWindow () {
   const mode = process.env.NODE_ENV
   mainWindow = new BrowserWindow({
-    width: 900,
-    height: 680,
+    width: 800,
+    height: 600,
     webPreferences: {
       nodeIntegration: false, // is default value after Electron v5
       contextIsolation: true, // protect against prototype pollution
       enableRemoteModule: false, // turn off remote
       preload: path.join(__dirname, 'preload.js') // use a preload script
-    }
+    },
+    backgroundColor: '#374151'
   })
   let watcher
   if (mode === 'development') {
@@ -39,7 +40,7 @@ function createWindow () {
   })
 
   // enable devtools
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -80,4 +81,8 @@ ipcMain.handle('delete-playlists', async (event, playlists) => {
 ipcMain.handle('add-playlists', async (event, playlists) => {
   copyPlaylists(playlists, path.join(__dirname, './availablePlaylists'), playlistFolderPath)
   return await getPlaylistsFromPath(playlistFolderPath)
+})
+
+ipcMain.on('open-url', (event, url) => {
+  shell.openExternal(url)
 })
