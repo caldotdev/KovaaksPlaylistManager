@@ -75,11 +75,23 @@ app.on('activate', () => {
 
 ipcMain.on('add-playlists', (event, message) => {
   const playlistsToInstall = message
-  // TODO: introduce promises for that
   playlistsToInstall.forEach(playlist => {
+    // TODO: make this non blocking?
     fs.copyFileSync(`${availablePlaylistsPath}/${playlist}`, `${combinedPath}/${playlist}`, (err) => {
       if (err) console.log('there was a problem copying an available playlists to the installed ones', err)
       else console.log(`successfully copied "${playlist}"`)
+    })
+  })
+  updateInstalledPlaylists()
+})
+
+ipcMain.on('remove-playlists', (event, message) => {
+  const playlistsToDelete = message
+  playlistsToDelete.forEach(playlist => {
+    // TODO: make this non blocking?
+    fs.unlinkSync(`${combinedPath}/${playlist}`, (err) => {
+      if (err) console.log('there was a problem copying an available playlists to the installed ones', err)
+      else console.log(`successfully deleted "${playlist}"`)
     })
   })
   updateInstalledPlaylists()

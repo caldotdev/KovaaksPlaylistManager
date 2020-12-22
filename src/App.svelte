@@ -14,7 +14,7 @@ ipcRenderer.on('available-playlists', (event, message) => {
 })
 
 function handleDelete () {
-
+	ipcRenderer.send('remove-playlists', selectedPlaylists)
 }
 
 function handleAdd () {
