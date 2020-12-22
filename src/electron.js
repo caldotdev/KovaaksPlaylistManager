@@ -4,9 +4,6 @@ const Store = require('electron-store')
 const store = new Store()
 const isDev = require('electron-is-dev')
 
-// updater
-require('update-electron-app')()
-
 const { getPlaylistsFromPath, deletePlaylists, copyPlaylists } = require('./util/playlistFileUtil')
 
 // Keep a global reference of the window object, if you don't, the window will

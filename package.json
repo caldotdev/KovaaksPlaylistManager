@@ -1,17 +1,35 @@
 {
   "name": "kovaaks-playlist-manager",
-  "version": "1.0.0",
+  "version": "0.0.1",
+  "description": "Tool to manage playlist files in Kovaaks FPS Aim Trainer",
   "main": "./src/electron.js",
+  "license": "MIT",
+  "author": {
+    "name": "sens",
+    "email": "coluckenbac@adct.com",
+    "url": "https://twitter.com/sens0001"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sens0001/KovaaksPlaylistManager"
+  },
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public",
+    "start": "electron-forge start",
     "electron": "run-s build pure-electron",
     "pure-electron": "electron .",
     "electron-dev": "run-p dev pure-electron-dev",
-    "pure-electron-dev": "cross-env NODE_ENV=development electron ."
+    "pure-electron-dev": "cross-env NODE_ENV=development electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "autoprefixer": "^10.1.0",
@@ -39,7 +57,23 @@
   },
   "dependencies": {
     "electron-is-dev": "^1.2.0",
-    "electron-store": "^6.0.1",
-    "update-electron-app": "^2.0.1"
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-store": "^6.0.1"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "kovaaks_playlist_manager",
+            "exe": "KovaaksPlaylistManager",
+            "certificateFile": "./cert.pfx",
+            "certificatePassword": "this-is-a-secret"
+          }
+        }
+      ]
+    }
   }
 }
