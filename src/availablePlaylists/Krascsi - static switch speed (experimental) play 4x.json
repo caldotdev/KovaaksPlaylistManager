@@ -1,0 +1,58 @@
+{
+	"playlistName": "Krascsi - static switch speed (experimental) play 4x",
+	"scenarioList": [
+		{
+			"scenarioName": "Target Switching 360 Static Thin",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Target Switching 360 Static",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Target Switching 360 Static - More bots",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Tile Frenzy Flick 180",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Jumbo Tile Frenzy Flick 180",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "kinTS NR Static",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "kinTS V2 Static",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "insTS",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "patCircleSwitch small NR Static",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "patCircleSwitch NR Static",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "pattargetswitch static no reload",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "voxTargetSwitch Static 30% Smaller",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "voxTargetSwitch Static",
+			"playCount": 1
+		}
+	],
+	"isFavorite": true
+}

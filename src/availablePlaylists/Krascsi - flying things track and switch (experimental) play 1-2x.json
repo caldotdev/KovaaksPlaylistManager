@@ -1,0 +1,134 @@
+{
+	"playlistName": "Krascsi - flying things track and switch (experimental) play 1-2x",
+	"scenarioList": [
+		{
+			"scenarioName": "centering I",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "centering II",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "centering III",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "centering IIII",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Air Invincible 5",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Air Angelic Bot 5 Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Air Invincible 5 Small Fast",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Air Invincible 5 Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Air Invincible 5 Extra Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Air Invincible 5 Vertical Limited",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Air Angelic invincible 5",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Thin Aiming Long Invincible Fast",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Smoothsphere",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Extra SmoothSphere",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Smoothbot Unvincible Small Goated",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "SmoothBot Invincible Goated",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Smoothbot Sparky v2",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "SmoothBot Target Switching",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "FN Gliders 360 HS Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Glider GOATED",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Fortnite Glider 360 Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Fortnite Glider 360 Invincible Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Fortnite Gliders 360 Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Fortnite Glider 360 HS Invincible Fixed",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "SmoothBot Unvincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "SmoothBot",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Smoothbot Pauer",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Smoothbot Unvincible Goated",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "SmoothBot Invincible Goated Smaller",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "SmoothBot Invincible Goated Thinner",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "SmoothBot UFO",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Air dodge invincible 5",
+			"playCount": 1
+		}
+	],
+	"isFavorite": true
+}

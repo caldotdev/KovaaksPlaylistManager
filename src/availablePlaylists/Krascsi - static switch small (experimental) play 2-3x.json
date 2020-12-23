@@ -1,0 +1,110 @@
+{
+	"playlistName": "Krascsi - static switch small (experimental) play 2-3x",
+	"scenarioList": [
+		{
+			"scenarioName": "Pokeball 5 Sphere Hipfire Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball 5 Sphere Hipfire Extra Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Auto 1w2ts smallflicks",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "devTS Goated NR Static ",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball 1w2ts Horizontalish [small]",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball 1w2ts Horizontalish",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto 1w2tes",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto 1w2ts",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto 1w4tes",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto 1w4ts",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto 1w6tes",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto 1w6ts",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Ballsheet 3D",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto Extra Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto TE",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Auto ww6ts",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Auto ww6t",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto Wide Extra Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto Wide Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto Small Wide",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Frenzy Auto Wide",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pokeball Wide rAim",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "voxTargetSwitch Static Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "voxTargetSwitch Static 30% Smaller",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "voxTargetSwitch Static",
+			"playCount": 1
+		}
+	],
+	"isFavorite": true
+}

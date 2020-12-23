@@ -1,0 +1,210 @@
+{
+	"playlistName": "Krascsi - arc track and switch+movement (experimental) play 1x",
+	"scenarioList": [
+		{
+			"scenarioName": "B180TI Small Sparky",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "B180TI Sparky",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "B180TI Extra Small Sparky",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "B180TI Stupidly Small Sparky",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 Tracking Small Invincible Fixed",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 Tracking Invincible Always Bounce",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 Tracking Small Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 Tracking Sparky",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 Tracking Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 Tracking",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "fuglaab180t",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 tracking small 2x hp",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 Tracking Small rAim",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "B180T Small smooth",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "B180T smooth Medium TTK",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Skeet Tracking Goated Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "vertical smoothness training popcorn",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Vertical Smoothness Training Popcorn Extra Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "vertical smoothness training popcorn small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Popcorn Goated Tracking Easy Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "popcorn goated tracking invincible smaller",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Popcorn Goated Tracking Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Popcorn Goated Tracking",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "PGTI Curved",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "PGTI Hyper",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Popcorn Sparky v2 Tracking",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Popcorn Tracking Gauntlet",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Popcorn Goated Tracking Reversed",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Popcorn Goated Tracking Reversed small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Vertical Hell",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Leap 180 Tracking Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Leap 180 Tracking Small Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Leap 180 Tracking",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Leap 180 Tracking Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Fountain tracking small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Fountain Tracking",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 Tracking Invincible Dodge",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 180 Dodge Tracking",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Arc Dodge",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Arc Dodge Switch",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Arc Dodge Smooth",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Hyperscape VT Dodge Easy",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Hyperscape VT Dodge Hard",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Hyperscape VT Dodge",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Popcorn Goated Tracking Reversed Dodge",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Leap 360 Dodge Tracking Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Leap 360 Dodge Tracking",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Leap 360 Dodge Invincible Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Leap 360 Dodge Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 360 Dodge Invincible Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Bounce 360 Dodge Tracking Small",
+			"playCount": 1
+		}
+	],
+	"isFavorite": true
+}

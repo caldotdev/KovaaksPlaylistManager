@@ -1,0 +1,142 @@
+{
+	"playlistName": "Krascsi - 1wall tracking+movement (experimental) play 1-2x",
+	"scenarioList": [
+		{
+			"scenarioName": "XY 3D Tracking",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "ddtv xyz close veryslow small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "ddtv xyz close slow small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "ddtv xyz close fast small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "ddtv xyz mid veryslow small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "ddtv xyz mid slow small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "ddtv xyz mid fast small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "ddtv xyz far veryslow small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "ddtv xyz far slow small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "ddtv xyz far fast small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Controlsphere",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "fuglaaXYLongstrafesINSANE",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "fuglaaXYShortstrafesINSANE",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "FuglaaXYSmoothTracking",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pasu Track Smooth extra small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "fuglaaXYReactivity",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "fuglaaXYReactivity V2",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "fuglaaXYReactivity V2 Small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "fuglaaXY Reactive rAim",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "fuglaaXYKillimanjaro",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "fuglaaXYKillimanjaro V2",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "1wall5target pasu track invincible small fast",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pasu Track Invincible Small V2",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pasu TI Sparky small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pasu track invincible hard",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pasu Track Smooth small",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pasu Vert Track Easy",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Small_tracking_pasu",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "tamTargetSwitch Smooth Hard",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "tamTargetSwitch Control Hard",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pasu Dodge small Tracking Invincible",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pasu Dodge small Tracking Invincible easier",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "Pasu Dodge small Tracking Invincible slower",
+			"playCount": 1
+		},
+		{
+			"scenarioName": "XY Tracking Dodge Hard",
+			"playCount": 1
+		}
+	],
+	"isFavorite": true
+}

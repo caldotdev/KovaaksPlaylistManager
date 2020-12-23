@@ -1,0 +1,58 @@
+{
+	"playlistName": "Huddled Static Dots",
+	"scenarioList": [
+		{
+			"scenarioName": "ww2t reload",
+			"playCount": 5
+		},
+		{
+			"scenarioName": "Wide Wall 3 Targets",
+			"playCount": 5
+		},
+		{
+			"scenarioName": "1w2ts reload",
+			"playCount": 5
+		},
+		{
+			"scenarioName": "1w4ts reload",
+			"playCount": 5
+		},
+		{
+			"scenarioName": "ww6ts reload",
+			"playCount": 3
+		},
+		{
+			"scenarioName": "1w3ts",
+			"playCount": 5
+		},
+		{
+			"scenarioName": "1w4ts Vertical",
+			"playCount": 3
+		},
+		{
+			"scenarioName": "1w4ts reload 30% smaller",
+			"playCount": 3
+		},
+		{
+			"scenarioName": "6wall18targets small reload",
+			"playCount": 3
+		},
+		{
+			"scenarioName": "ww6ts reload v2",
+			"playCount": 5
+		},
+		{
+			"scenarioName": "Wide Wall 4 Targets Small",
+			"playCount": 3
+		},
+		{
+			"scenarioName": "Wide Wall 4 Targets",
+			"playCount": 5
+		},
+		{
+			"scenarioName": "ww6t reload",
+			"playCount": 5
+		}
+	],
+	"isFavorite": true
+}
