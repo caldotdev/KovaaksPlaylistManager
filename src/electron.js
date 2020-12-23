@@ -46,7 +46,9 @@ function createWindow () {
   mainWindow.removeMenu()
 
   // enable devtools
-  // mainWindow.webContents.openDevTools()
+  if (isDev) {
+    mainWindow.webContents.openDevTools()
+  }
 }
 
 // This method will be called when Electron has finished

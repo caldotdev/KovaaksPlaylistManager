@@ -16,9 +16,10 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
+    "start": "sirv public",
     "electron": "run-s build pure-electron",
-    "pure-electron": "electron .",
     "electron-dev": "run-p dev pure-electron-dev",
+    "pure-electron": "electron .",
     "pure-electron-dev": "cross-env NODE_ENV=development electron .",
     "package": "electron-packager . KovaaksPlaylistManager --platform=win32 --arch=x64 --out=./build/target --overwrite",
     "create-installer": "node ./build/createInstaller.js"

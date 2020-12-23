@@ -16,6 +16,7 @@
 	});
 
 	window.api.steamPathSet((success) => {
+		console.log(response)
 		if (response) {
 			window.api
 			.receiveInstalledPlaylists()
