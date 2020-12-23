@@ -63,7 +63,7 @@ app.on('window-all-closed', app.quit)
 // ------------------------------------------------------------------------------------
 
 if (!isDev) {
-  const server = 'https://your-deployment-url.com'
+  const server = 'https://kpm-update-server.vercel.app/'
   const url = `${server}/update/${process.platform}/${app.getVersion()}`
 
   autoUpdater.setFeedURL({ url })
