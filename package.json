@@ -16,26 +16,22 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "electron-forge start",
     "electron": "run-s build pure-electron",
     "pure-electron": "electron .",
     "electron-dev": "run-p dev pure-electron-dev",
     "pure-electron-dev": "cross-env NODE_ENV=development electron .",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "package": "electron-packager . KovaaksPlaylistManager --platform=win32 --arch=x64 --out=./build/target --overwrite",
+    "create-installer": "node ./build/createInstaller.js"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.0-beta.54",
-    "@electron-forge/maker-deb": "^6.0.0-beta.54",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
-    "@electron-forge/maker-zip": "^6.0.0-beta.54",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
     "autoprefixer": "^10.1.0",
     "chokidar": "^3.4.3",
     "cross-env": "^7.0.3",
     "electron": "^11.1.0",
+    "electron-packager": "^15.2.0",
+    "electron-winstaller": "^4.0.1",
     "eslint": "^7.16.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
@@ -60,20 +56,5 @@
     "electron-squirrel-startup": "^1.0.0",
     "electron-store": "^6.0.1"
   },
-  "config": {
-    "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "kovaaks_playlist_manager",
-            "exe": "KovaaksPlaylistManager",
-            "certificateFile": "./cert.pfx",
-            "certificatePassword": "this-is-a-secret"
-          }
-        }
-      ]
-    }
-  }
+  "config": {}
 }

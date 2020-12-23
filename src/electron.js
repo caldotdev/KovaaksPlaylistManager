@@ -4,6 +4,8 @@ const Store = require('electron-store')
 const store = new Store()
 const isDev = require('electron-is-dev')
 
+if(require('electron-squirrel-startup')) return;
+
 const { getPlaylistsFromPath, deletePlaylists, copyPlaylists } = require('./util/playlistFileUtil')
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -22,7 +24,8 @@ function createWindow () {
       enableRemoteModule: false, // turn off remote
       preload: path.join(__dirname, 'preload.js') // use a preload script
     },
-    backgroundColor: '#374151'
+    backgroundColor: '#374151',
+    resizable: false
   })
   let watcher
   if (mode === 'development') {
@@ -39,6 +42,8 @@ function createWindow () {
       watcher.close()
     }
   })
+
+  mainWindow.removeMenu()
 
   // enable devtools
   // mainWindow.webContents.openDevTools()
@@ -64,7 +69,7 @@ if (!isDev) {
   setInterval(() => {
     autoUpdater.checkForUpdates()
   }, 60000)
-}
+
 
 autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName) => {
   const dialogOpts = {
@@ -84,17 +89,18 @@ autoUpdater.on('error', message => {
   console.error('There was a problem updating the application')
   console.error(message)
 })
+}
 
 // ------------------------------------------------------------------------------------
 
 ipcMain.on('open-dialog', (event, arg) => {
   dialog.showOpenDialog({ properties: ['openDirectory'] }).then(response => {
     if (response.canceled !== true) {
-      if (isDev) {
-        playlistFolderPath = `${response.filePaths[0]}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`
-      } else {
-        playlistFolderPath = `${response.filePaths[0]}\\steamapps\\common\\FPSAimTrainer\\FPSAimTrainer\\Saved\\SaveGames\\Playlists`
-      }
+        playlistFolderPath = path.normalize(`${response.filePaths[0]}/steamapps/common/FPSAimTrainer/FPSAimTrainer/Saved/SaveGames/Playlists`)
+        store.set('playlistFolderPath', playlistFolderPath)
+        event.reply('steam-path-set', true)
+    } else {
+      event.reply('steam-path-set', false)
     }
   })
 })

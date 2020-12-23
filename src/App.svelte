@@ -15,6 +15,17 @@
 			.then((playlists) => (availablePlaylists = playlists));
 	});
 
+	window.api.steamPathSet((success) => {
+		if (response) {
+			window.api
+			.receiveInstalledPlaylists()
+			.then((playlists) => (installedPlaylists = playlists));
+		} else {
+			// TODO handle that latert
+			console.log('user has canceled the select dialog')
+		}
+	})
+
 	function setSteamPath() {
 		window.api.openDialog();
 	}
@@ -74,7 +85,7 @@
 					class="m-3 h-full">
 					{#each installedPlaylists as playlist}
 						<option value={playlist}>
-							{playlist.replace(/\.[^/.]+$/, '')}
+							{playlist.replace(/(.json)$/i, '')}
 						</option>
 					{/each}
 				</select>
@@ -96,7 +107,7 @@
 					class="m-3 h-full">
 					{#each availablePlaylists as availablePlaylist}
 						<option value={availablePlaylist}>
-							{availablePlaylist.replace(/\.[^/.]+$/, '')}
+							{availablePlaylist.replace(/(.json)$/i, '')}
 						</option>
 					{/each}
 				</select>
