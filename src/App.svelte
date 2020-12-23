@@ -16,8 +16,7 @@
 	});
 
 	window.api.steamPathSet((success) => {
-		console.log(response)
-		if (response) {
+		if (success) {
 			window.api
 			.receiveInstalledPlaylists()
 			.then((playlists) => (installedPlaylists = playlists));
@@ -40,7 +39,7 @@
 	}
 
 	function handleAdd() {
-		if (selectedAvailablePlaylists > 0) {
+		if (selectedAvailablePlaylists.length > 0) {
 			window.api
 				.addPlaylists(selectedAvailablePlaylists)
 				.then((playlists) => (installedPlaylists = playlists));
