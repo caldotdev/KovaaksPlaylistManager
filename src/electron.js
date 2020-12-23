@@ -25,7 +25,8 @@ function createWindow () {
       preload: path.join(__dirname, 'preload.js') // use a preload script
     },
     backgroundColor: '#374151',
-    resizable: false
+    resizable: false,
+    show: false
   })
   let watcher
   if (mode === 'development') {
@@ -49,6 +50,11 @@ function createWindow () {
   if (isDev) {
     mainWindow.webContents.openDevTools()
   }
+
+  // waits for ready state to show window (reduces flickering when starting the app)
+mainWindow.once('ready-to-show', () => {
+  mainWindow.show()
+})
 }
 
 // This method will be called when Electron has finished

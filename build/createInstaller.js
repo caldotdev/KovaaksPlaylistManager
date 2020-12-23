@@ -7,7 +7,11 @@ async function createInstaller () {
       outputDirectory: './build/target/installer',
       loadingGif: './build/assets/installing.gif',
       authors: 'sens',
-      exe: 'KovaaksPlaylistManager.exe'
+      exe: 'KovaaksPlaylistManager.exe',
+      title: 'Kovaaks Playlist Manager',
+      setupExe: 'InstallKovaaksPlaylistManager.exe',
+      noMsi: true,
+      version: '0.0.1'
     })
     console.log('It worked!')
   } catch (e) {
